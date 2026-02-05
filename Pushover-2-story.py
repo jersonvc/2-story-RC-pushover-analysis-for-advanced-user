@@ -222,10 +222,10 @@ def build_frame():
             
             # beamWithHinges element with fiber sections
             ops.element('beamWithHinges', elem_tag, node_i, node_j,
-                       sec_col, Lp_col,      # Bottom hinge
-                       sec_col, Lp_col,      # Top hinge
-                       E, Ac, Ic, 1,
-                       '-integration', 'Lobatto', sec_col_elastic, nip)
+                        sec_col, Lp_col,      # Bottom hinge
+                        sec_col, Lp_col,      # Top hinge
+                        E, Ac, Ic, 1,
+                        '-integration', 'Lobatto', sec_col_elastic, nip)
             
             elements_info.append({
                 'tag': elem_tag,
@@ -265,10 +265,10 @@ def build_frame():
             xj, yj = node_coords[node_j]
             
             ops.element('beamWithHinges', elem_tag, node_i, node_j,
-                       sec_beam, Lp_beam,
-                       sec_beam, Lp_beam,
-                       E, Ab, Ib, 2,
-                       '-integration', 'Lobatto', sec_beam_elastic, nip)
+                        sec_beam, Lp_beam,
+                        sec_beam, Lp_beam,
+                        E, Ab, Ib, 2,
+                        '-integration', 'Lobatto', sec_beam_elastic, nip)
             
             elements_info.append({
                 'tag': elem_tag,
@@ -328,15 +328,15 @@ def draw_section(ax, b, h, x, y, section_type, label):
     """Draw detailed cross-section"""
     
     rect = Rectangle((x - b/2, y - h/2), b, h,
-                     edgecolor='black', facecolor='lightgray', linewidth=2.5)
+                    edgecolor='black', facecolor='lightgray', linewidth=2.5)
     ax.add_patch(rect)
     
     # Cover outline
     cover = 40
     rect_core = Rectangle((x - b/2 + cover, y - h/2 + cover), 
-                          b - 2*cover, h - 2*cover,
-                          edgecolor='blue', facecolor='none', 
-                          linewidth=1.5, linestyle='--', alpha=0.6)
+                            b - 2*cover, h - 2*cover,
+                            edgecolor='blue', facecolor='none', 
+                            linewidth=1.5, linestyle='--', alpha=0.6)
     ax.add_patch(rect_core)
     
     if section_type == 'column':
@@ -348,7 +348,7 @@ def draw_section(ax, b, h, x, y, section_type, label):
         ]
         for px, py in positions:
             circle = Circle((x + px, y + py), 12, color='darkred', zorder=10, 
-                          edgecolor='black', linewidth=0.5)
+                            edgecolor='black', linewidth=0.5)
             ax.add_patch(circle)
     else:
         # 6 bars at bottom of beam
@@ -356,17 +356,17 @@ def draw_section(ax, b, h, x, y, section_type, label):
         x_positions = np.linspace(x - b/2 + cover, x + b/2 - cover, 6)
         for px in x_positions:
             circle = Circle((px, y_bars), 12, color='darkred', zorder=10,
-                          edgecolor='black', linewidth=0.5)
+                            edgecolor='black', linewidth=0.5)
             ax.add_patch(circle)
     
     # Dimensions
     ax.text(x, y - h/2 - 100, f'b = {b:.0f} mm', ha='center', 
-           fontsize=10, fontweight='bold', color='darkblue')
+            fontsize=10, fontweight='bold', color='darkblue')
     ax.text(x - b/2 - 120, y, f'h = {h:.0f} mm', va='center', rotation=90,
-           fontsize=10, fontweight='bold', color='darkblue')
+            fontsize=10, fontweight='bold', color='darkblue')
     ax.text(x, y + h/2 + 120, label, ha='center', fontsize=12, 
-           fontweight='bold', color='navy',
-           bbox=dict(boxstyle='round,pad=0.5', facecolor='lightyellow', 
+            fontweight='bold', color='navy',
+            bbox=dict(boxstyle='round,pad=0.5', facecolor='lightyellow', 
                     edgecolor='navy', linewidth=2))
     
     ax.set_aspect('equal')
@@ -385,7 +385,7 @@ def visualize_model(model_data):
     
     fig = plt.figure(figsize=(20, 14))
     gs = fig.add_gridspec(3, 3, hspace=0.35, wspace=0.35,
-                         left=0.08, right=0.95, top=0.93, bottom=0.05)
+                            left=0.08, right=0.95, top=0.93, bottom=0.05)
     
     ax_main = fig.add_subplot(gs[:, :2])
     ax_col = fig.add_subplot(gs[0, 2])
@@ -424,8 +424,8 @@ def visualize_model(model_data):
         
         # Hinge marker
         ax_main.scatter(x, y, s=size*3, c=color, marker=marker_style,
-                       zorder=10, alpha=0.6, edgecolors='darkred', 
-                       linewidths=2, label=label)
+                        zorder=10, alpha=0.6, edgecolors='darkred', 
+                        linewidths=2, label=label)
         
         # Crosshair
         s = 80
@@ -440,8 +440,8 @@ def visualize_model(model_data):
                         markeredgewidth=2, markeredgecolor='red')
             # Support symbol
             triangle = mpatches.Polygon([[x-200, y], [x+200, y], [x, y-300]],
-                                       closed=True, facecolor='gray', 
-                                       edgecolor='black', linewidth=2, zorder=14)
+                                        closed=True, facecolor='gray', 
+                                        edgecolor='black', linewidth=2, zorder=14)
             ax_main.add_patch(triangle)
         else:
             ax_main.plot(x, y, 'ko', markersize=10, zorder=15,
@@ -456,7 +456,7 @@ def visualize_model(model_data):
         ax_main.text(x, y + offset_y, f'{node}', ha='center', va='center',
                     fontsize=9, fontweight='bold', color='white',
                     bbox=dict(boxstyle='circle,pad=0.3', facecolor='darkblue',
-                             edgecolor='white', linewidth=1.5),
+                                edgecolor='white', linewidth=1.5),
                     zorder=16)
     
     # --- ELEMENT NUMBERS ---
@@ -478,7 +478,7 @@ def visualize_model(model_data):
                     ha='center', va='center',
                     fontsize=8, fontweight='bold', color='black',
                     bbox=dict(boxstyle='round,pad=0.4', facecolor=bg_color,
-                             edgecolor='black', linewidth=1.5, alpha=0.9),
+                                edgecolor='black', linewidth=1.5, alpha=0.9),
                     zorder=16)
     
     # --- GROUND REPRESENTATION ---
@@ -491,9 +491,9 @@ def visualize_model(model_data):
     ax_main.set_xlabel('X Coordinate (mm)', fontsize=14, fontweight='bold')
     ax_main.set_ylabel('Y Coordinate (mm)', fontsize=14, fontweight='bold')
     ax_main.set_title('Structural Model - Node & Element Numbering\nPlastic Hinge Locations',
-                     fontsize=16, fontweight='bold', pad=20, color='navy')
+                        fontsize=16, fontweight='bold', pad=20, color='navy')
     ax_main.legend(loc='upper left', fontsize=11, framealpha=0.95,
-                  edgecolor='black', fancybox=True, shadow=True)
+                    edgecolor='black', fancybox=True, shadow=True)
     ax_main.grid(True, alpha=0.3, linestyle='--')
     ax_main.set_aspect('equal')
     ax_main.set_xlim(-1500, n_bays * L + 1500)
@@ -525,7 +525,7 @@ def visualize_model(model_data):
     ax_beam.set_xlim(-300, 300)
     ax_beam.set_ylim(-400, 500)
     ax_beam.set_title('Beam Cross-Section', fontsize=12, fontweight='bold',
-                     color='navy', pad=10)
+                        color='navy', pad=10)
     ax_beam.set_xlabel('z (mm)', fontsize=10)
     ax_beam.set_ylabel('y (mm)', fontsize=10)
     
@@ -539,41 +539,41 @@ def visualize_model(model_data):
 ╚═══════════════════════════════════════╝
 
 GEOMETRY:
-  • Stories: {n_stories}
-  • Bays: {n_bays}
-  • Story Height: {H/1000:.1f} m
-  • Bay Width: {L/1000:.1f} m
+    • Stories: {n_stories}
+    • Bays: {n_bays}
+    • Story Height: {H/1000:.1f} m
+    • Bay Width: {L/1000:.1f} m
 
 ELEMENTS:
-  • Total Nodes: {len(node_coords)}
-  • Columns: {n_stories * (n_bays + 1)}
-  • Beams: {n_stories * n_bays}
-  • Element Type: beamWithHinges
+    • Total Nodes: {len(node_coords)}
+    • Columns: {n_stories * (n_bays + 1)}
+    • Beams: {n_stories * n_bays}
+    • Element Type: beamWithHinges
 
 PLASTIC HINGES:
-  • Column Hinge Zones: {col_hinges}
-  • Beam Hinge Zones: {beam_hinges}
-  • Total: {len(hinge_info)}
-  • Hinge Length (Col): {model_data['Lp_col']:.0f} mm
-  • Hinge Length (Beam): {model_data['Lp_beam']:.0f} mm
+    • Column Hinge Zones: {col_hinges}
+    • Beam Hinge Zones: {beam_hinges}
+    • Total: {len(hinge_info)}
+    • Hinge Length (Col): {model_data['Lp_col']:.0f} mm
+    • Hinge Length (Beam): {model_data['Lp_beam']:.0f} mm
 
 SECTION PROPERTIES:
-  • Column: {model_data['b_col']:.0f}×{model_data['h_col']:.0f} mm
-  • Beam: {model_data['b_beam']:.0f}×{model_data['h_beam']:.0f} mm
+    • Column: {model_data['b_col']:.0f}×{model_data['h_col']:.0f} mm
+    • Beam: {model_data['b_beam']:.0f}×{model_data['h_beam']:.0f} mm
 
 MOMENT CAPACITIES:
-  • Column My: {model_data['My_col']:.1f} kN-m
-  • Beam My: {model_data['My_beam']:.1f} kN-m
+    • Column My: {model_data['My_col']:.1f} kN-m
+    • Beam My: {model_data['My_beam']:.1f} kN-m
 
 MATERIALS:
-  • Concrete fc: {model_data['fc']:.0f} MPa
-  • Steel fy: {model_data['fy']:.0f} MPa
+    • Concrete fc: {model_data['fc']:.0f} MPa
+    • Steel fy: {model_data['fy']:.0f} MPa
     """
     
     ax_info.text(0.05, 0.98, info_text, transform=ax_info.transAxes,
                 fontsize=9, verticalalignment='top', family='monospace',
                 bbox=dict(boxstyle='round,pad=0.8', facecolor='wheat', alpha=0.95,
-                         edgecolor='navy', linewidth=3))
+                            edgecolor='navy', linewidth=3))
     
     plt.suptitle('PROFESSIONAL STRUCTURAL MODEL VISUALIZATION',
                 fontsize=18, fontweight='bold', y=0.97, color='navy')
@@ -645,9 +645,9 @@ def plot_stress_strain_curves(model_data):
     
     # Add annotations
     ax.annotate('Elastic\nRange', xy=(-1, -15), fontsize=10, ha='center',
-               bbox=dict(boxstyle='round,pad=0.5', facecolor='lightblue', alpha=0.7))
+                bbox=dict(boxstyle='round,pad=0.5', facecolor='lightblue', alpha=0.7))
     ax.annotate('Strain\nSoftening', xy=(-4, -10), fontsize=10, ha='center',
-               bbox=dict(boxstyle='round,pad=0.5', facecolor='lightcoral', alpha=0.7))
+                bbox=dict(boxstyle='round,pad=0.5', facecolor='lightcoral', alpha=0.7))
     
     # --- STEEL STRESS-STRAIN ---
     ax = axes[1]
@@ -672,12 +672,12 @@ def plot_stress_strain_curves(model_data):
     
     # Yield points
     ax.plot(eps_y * 1000, fy, 'go', markersize=12, 
-           label=f'Yield: ±{fy:.0f} MPa @ ±{eps_y*1000:.2f}‰', zorder=5)
+            label=f'Yield: ±{fy:.0f} MPa @ ±{eps_y*1000:.2f}‰', zorder=5)
     ax.plot(-eps_y * 1000, -fy, 'go', markersize=12, zorder=5)
     
     # Elastic limit lines
     ax.plot([-eps_y*1000, eps_y*1000], [-fy, fy], 'g--', 
-           linewidth=2, alpha=0.6, label='Elastic Limit')
+            linewidth=2, alpha=0.6, label='Elastic Limit')
     
     ax.axhline(y=0, color='k', linewidth=1, linestyle='-', alpha=0.3)
     ax.axvline(x=0, color='k', linewidth=1, linestyle='-', alpha=0.3)
@@ -692,11 +692,11 @@ def plot_stress_strain_curves(model_data):
     
     # Add annotations
     ax.annotate('Elastic\nRegion', xy=(0, 200), fontsize=10, ha='center',
-               bbox=dict(boxstyle='round,pad=0.5', facecolor='lightgreen', alpha=0.7))
+                bbox=dict(boxstyle='round,pad=0.5', facecolor='lightgreen', alpha=0.7))
     ax.annotate('Strain\nHardening', xy=(7, 450), fontsize=10, ha='center',
-               bbox=dict(boxstyle='round,pad=0.5', facecolor='lightyellow', alpha=0.7))
+                bbox=dict(boxstyle='round,pad=0.5', facecolor='lightyellow', alpha=0.7))
     ax.annotate('Strain\nHardening', xy=(-7, -450), fontsize=10, ha='center',
-               bbox=dict(boxstyle='round,pad=0.5', facecolor='lightyellow', alpha=0.7))
+                bbox=dict(boxstyle='round,pad=0.5', facecolor='lightyellow', alpha=0.7))
     
     plt.suptitle('MATERIAL CONSTITUTIVE MODELS - STRESS-STRAIN CURVES',
                 fontsize=16, fontweight='bold', color='navy')
@@ -892,10 +892,10 @@ def plot_deformed_shape(model_data, scale_factor=50):
         (x1, y1), (x2, y2) = elem['coords']
         if elem['type'] == 'column':
             ax.plot([x1, x2], [y1, y2], 'b--', linewidth=3, alpha=0.3, 
-                   label='Original' if elem['tag'] == 1 else '')
+                    label='Original' if elem['tag'] == 1 else '')
         else:
             ax.plot([x1, x2], [y1, y2], 'g--', linewidth=3, alpha=0.3,
-                   label='Original' if elem['tag'] == 7 else '')
+                    label='Original' if elem['tag'] == 7 else '')
     
     # Draw deformed shape
     for elem in elements_info:
@@ -905,12 +905,12 @@ def plot_deformed_shape(model_data, scale_factor=50):
         
         if elem['type'] == 'column':
             ax.plot([x1, x2], [y1, y2], 'b-', linewidth=8, alpha=0.8,
-                   solid_capstyle='round',
-                   label='Deformed (Columns)' if elem['tag'] == 1 else '')
+                    solid_capstyle='round',
+                    label='Deformed (Columns)' if elem['tag'] == 1 else '')
         else:
             ax.plot([x1, x2], [y1, y2], 'g-', linewidth=6, alpha=0.8,
-                   solid_capstyle='round',
-                   label='Deformed (Beams)' if elem['tag'] == 7 else '')
+                    solid_capstyle='round',
+                    label='Deformed (Beams)' if elem['tag'] == 7 else '')
     
     # Draw deformed nodes
     for node, (x, y) in deformed_coords.items():
@@ -928,7 +928,7 @@ def plot_deformed_shape(model_data, scale_factor=50):
             
             if floor == n_stories:  # Only show for roof
                 ax.annotate('', xy=(x_def, y_def), xytext=(x_orig, y_orig),
-                          arrowprops=dict(arrowstyle='->', lw=2, color='red',
+                            arrowprops=dict(arrowstyle='->', lw=2, color='red',
                                         mutation_scale=20))
     
     # Ground
@@ -947,8 +947,8 @@ def plot_deformed_shape(model_data, scale_factor=50):
     
     # Add scale info
     ax.text(0.02, 0.98, f'Deformation Scale: {scale_factor}×\nRed arrows: displacement vectors',
-           transform=ax.transAxes, fontsize=11, verticalalignment='top',
-           bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.9, 
+            transform=ax.transAxes, fontsize=11, verticalalignment='top',
+            bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.9, 
                     edgecolor='black', linewidth=2))
     
     plt.tight_layout()
@@ -982,7 +982,7 @@ def plot_curvature_distribution(element_curvatures, elements_info, model_data):
     ax1.set_xlabel('Analysis Step', fontsize=13, fontweight='bold')
     ax1.set_ylabel('Curvature (×10⁻³ rad/mm)', fontsize=13, fontweight='bold')
     ax1.set_title('Column Curvature Evolution\n(Hinge Sections)', 
-                 fontsize=14, fontweight='bold', color='navy', pad=15)
+                    fontsize=14, fontweight='bold', color='navy', pad=15)
     ax1.legend(fontsize=9, loc='upper left', ncol=2, framealpha=0.95)
     ax1.grid(True, alpha=0.3)
     
@@ -991,7 +991,7 @@ def plot_curvature_distribution(element_curvatures, elements_info, model_data):
     Ic = model_data['b_col'] * model_data['h_col']**3 / 12
     phi_y_col = My_col / (model_data['E'] * Ic) * 1000
     ax1.axhline(y=phi_y_col, color='red', linestyle='--', linewidth=2,
-               label=f'Approx. Yield φy ≈ {phi_y_col:.3f}×10⁻³', alpha=0.7)
+                label=f'Approx. Yield φy ≈ {phi_y_col:.3f}×10⁻³', alpha=0.7)
     ax1.legend(fontsize=9, loc='upper left', ncol=2, framealpha=0.95)
     
     # --- BEAM CURVATURES ---
@@ -1009,7 +1009,7 @@ def plot_curvature_distribution(element_curvatures, elements_info, model_data):
     ax2.set_xlabel('Analysis Step', fontsize=13, fontweight='bold')
     ax2.set_ylabel('Curvature (×10⁻³ rad/mm)', fontsize=13, fontweight='bold')
     ax2.set_title('Beam Curvature Evolution\n(Hinge Sections)',
-                 fontsize=14, fontweight='bold', color='navy', pad=15)
+                    fontsize=14, fontweight='bold', color='navy', pad=15)
     ax2.legend(fontsize=9, loc='upper left', ncol=2, framealpha=0.95)
     ax2.grid(True, alpha=0.3)
     
@@ -1018,7 +1018,7 @@ def plot_curvature_distribution(element_curvatures, elements_info, model_data):
     Ib = model_data['b_beam'] * model_data['h_beam']**3 / 12
     phi_y_beam = My_beam / (model_data['E'] * Ib) * 1000
     ax2.axhline(y=phi_y_beam, color='red', linestyle='--', linewidth=2,
-               label=f'Approx. Yield φy ≈ {phi_y_beam:.3f}×10⁻³', alpha=0.7)
+                label=f'Approx. Yield φy ≈ {phi_y_beam:.3f}×10⁻³', alpha=0.7)
     ax2.legend(fontsize=9, loc='upper left', ncol=2, framealpha=0.95)
     
     plt.suptitle('CURVATURE DISTRIBUTION - HINGE SECTIONS',
@@ -1047,12 +1047,12 @@ def plot_results(roof_disp, base_shear, H, n_stories):
     ax = fig.add_subplot(gs[0, 0])
     ax.plot(roof_disp, base_shear, 'b-', linewidth=3.5)
     ax.scatter(roof_disp[::8], base_shear[::8], c='red', s=80, 
-              zorder=5, edgecolors='darkred', linewidths=1.5)
+                zorder=5, edgecolors='darkred', linewidths=1.5)
     
     idx_peak = np.argmax(base_shear)
     ax.plot(roof_disp[idx_peak], base_shear[idx_peak], 'r*',
-           markersize=30, label=f'Peak: {base_shear[idx_peak]:.0f} kN', 
-           zorder=10, markeredgecolor='black', markeredgewidth=1.5)
+            markersize=30, label=f'Peak: {base_shear[idx_peak]:.0f} kN', 
+            zorder=10, markeredgecolor='black', markeredgewidth=1.5)
     
     ax.set_xlabel('Roof Displacement (mm)', fontsize=12, fontweight='bold')
     ax.set_ylabel('Base Shear (kN)', fontsize=12, fontweight='bold')
@@ -1074,12 +1074,12 @@ def plot_results(roof_disp, base_shear, H, n_stories):
     
     for drift, color, label, desc in perf_levels:
         ax.axvline(x=drift, color=color, linestyle='--', linewidth=2.5, 
-                  alpha=0.7, label=label)
+                    alpha=0.7, label=label)
         # Add text annotation
         y_pos = ax.get_ylim()[1] * 0.95
         ax.text(drift, y_pos, desc, rotation=90, va='top', ha='right',
-               fontsize=8, color=color, fontweight='bold',
-               bbox=dict(boxstyle='round,pad=0.3', facecolor='white', 
+                fontsize=8, color=color, fontweight='bold',
+                bbox=dict(boxstyle='round,pad=0.3', facecolor='white', 
                         alpha=0.8, edgecolor=color))
     
     ax.set_xlabel('Roof Drift Ratio (%)', fontsize=12, fontweight='bold')
@@ -1103,7 +1103,7 @@ def plot_results(roof_disp, base_shear, H, n_stories):
     if len(stiffness) > 5:
         K_initial = stiffness[0]
         ax.axhline(y=K_initial, color='blue', linestyle='--', linewidth=2,
-                  label=f'Initial: {K_initial:.3f} kN/mm', alpha=0.7)
+                    label=f'Initial: {K_initial:.3f} kN/mm', alpha=0.7)
     
     ax.set_xlabel('Roof Displacement (mm)', fontsize=12, fontweight='bold')
     ax.set_ylabel('Secant Stiffness (kN/mm)', fontsize=12, fontweight='bold')
@@ -1127,8 +1127,8 @@ def plot_results(roof_disp, base_shear, H, n_stories):
     # Add total energy annotation
     if len(energy) > 0:
         ax.text(0.98, 0.98, f'Total Energy:\n{energy[-1]:.1f} kN-m',
-               transform=ax.transAxes, fontsize=11, va='top', ha='right',
-               bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.9,
+                transform=ax.transAxes, fontsize=11, va='top', ha='right',
+                bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.9,
                         edgecolor='black', linewidth=2))
     
     # --- DISPLACEMENT VS STEP ---
@@ -1154,7 +1154,7 @@ def plot_results(roof_disp, base_shear, H, n_stories):
     
     ax.plot(roof_disp, ductility, 'orange', linewidth=3.5)
     ax.axhline(y=1.0, color='green', linestyle='--', linewidth=2, 
-              label='Yield (μ=1)', alpha=0.7)
+                label='Yield (μ=1)', alpha=0.7)
     ax.axvline(x=disp_yield, color='green', linestyle='--', linewidth=2, alpha=0.7)
     
     ax.set_xlabel('Roof Displacement (mm)', fontsize=12, fontweight='bold')
@@ -1167,8 +1167,8 @@ def plot_results(roof_disp, base_shear, H, n_stories):
     # Add max ductility annotation
     if len(ductility) > 0:
         ax.text(0.98, 0.98, f'Max Ductility:\nμ = {ductility[-1]:.2f}',
-               transform=ax.transAxes, fontsize=11, va='top', ha='right',
-               bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.9,
+                transform=ax.transAxes, fontsize=11, va='top', ha='right',
+                bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.9,
                         edgecolor='black', linewidth=2))
     
     plt.suptitle('PUSHOVER ANALYSIS RESULTS - COMPREHENSIVE PERFORMANCE EVALUATION',
